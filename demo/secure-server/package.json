@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "dev": "npx webpack --mode development"
+  }
+}
