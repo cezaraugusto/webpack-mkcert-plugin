@@ -1,12 +1,17 @@
 import path from 'path'
 import {bold, italic, underline} from '@colors/colors/safe'
 
-export function filesAlreadyExist(
+export function installationFilesFound(
   cert: string,
   key: string,
   outputDir: string
 ) {
-  return `Files "${bold(cert)}" and "${bold(key)}" found in ${underline(outputDir)}. Proceeding...`
+  return (
+      `\nRunning secure local connection via ${bold('mkcert')}. ` +
+      `Certificate files found:\n` +
+      `├─ ${underline(path.join(outputDir, cert))}\n` +
+      `└─ ${underline(path.join(outputDir, key))}`
+  )
 }
 
 export function certificateCreatedSuccessfully(
@@ -15,9 +20,9 @@ export function certificateCreatedSuccessfully(
   outputDir: string
 ) {
   return (
-    `Success! ${bold('cert')} and ${bold('key')} files successfuly created:\n` +
+    `\nSuccess! ${bold('cert')} and ${bold('key')} files successfuly created:\n` +
     `├─ ${underline(path.join(cert.startsWith('/') ? '' : outputDir, cert))}\n` +
-    `└─ ${underline(path.join(key.startsWith('/') ? '' : outputDir, key))}\n`
+    `└─ ${underline(path.join(key.startsWith('/') ? '' : outputDir, key))}`
   )
 }
 
@@ -52,6 +57,22 @@ export function forceCertRegenerate() {
   return `${italic('force')} option is enabled. Regenerating certificate...`
 }
 
+export function isFirstInstall() {
+  return (
+    `\nThis installation requires a secure local connection. ` +
+    `Generating a new localhost certificate via ${bold('mkcert')}...`
+  )
+}
+
+export function maybeSudoApprove() {
+  return (
+    `\nNote that certificate installations need manual user approval.\n` +
+    `If your system prompts for a password, please enter it to continue.\n` +
+    `This is a required step to install the certificate into your keychain.\n\n` +
+    `Read more about this process at ${underline('https://github.com/FiloSottile/mkcert')}.`
+  )
+}
+
 export function noVersionMkcertNotFound() {
   return `Could not get current version. ${bold(bold('mkcert'))} does not exist.`
 }
@@ -60,8 +81,8 @@ export function noGenerateMkcertNotFound(names: string) {
   return `Could not generate certificate for ${names}. ${bold(bold('mkcert'))} does not exist.`
 }
 
-export function mkcertIsRunning(version: string) {
-  return `Running ${bold(bold('mkcert'))}@${bold(version)}...`
+export function mkcertIsRunning() {
+  return `Found ${bold(bold('mkcert'))} binary. Running...`
 }
 
 export function tooManyRedirects(redirects: number, url: string) {
