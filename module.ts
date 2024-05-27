@@ -46,9 +46,9 @@ export default class MkcertWebpackPlugin {
     if (!isFirstInstall && !force) {
       // No need to install the certificate. User has it already.
       // We should proceed only if force option is enabled.
-      // if (process.env.EXTENSION_ENV === 'development') {
+      if (process.env.EXTENSION_ENV === 'development') {
         console.log(messages.installationFilesFound(cert, key, outputDir))
-      // }
+      }
       return
     }
 
