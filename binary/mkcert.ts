@@ -2,7 +2,6 @@ import os from 'os'
 import fs from 'fs'
 import path from 'path'
 import {exec} from 'child_process'
-import semver from 'semver-compare'
 import {type PluginOptions} from '../types'
 import getBinaryData from './get-binary-data'
 import downloadBinary from './download-binary'
@@ -44,27 +43,6 @@ export default class Mkcert {
       ? DOWNLOADED_MKCERT_BINARY_PATH
       : undefined
   }
-
-  private getBinaryVersion() {
-    const mkcertBinary = this.getBinary()
-
-    if (!mkcertBinary) {
-      console.error(messages.noVersionMkcertNotFound())
-      return null
-    }
-
-    const {stdout} = exec(`"${mkcertBinary}" --version`, {
-      env: {
-        ...process.env,
-        JAVA_HOME: undefined
-      }
-    })
-
-    const version = stdout?.toString().trim()
-
-    return version
-  }
-
   private async downloadBinary() {
     messages.startingMkcertDownload()
 
@@ -89,22 +67,6 @@ export default class Mkcert {
 
       return
     }
-
-    const current = this.getBinaryVersion()
-    const sourceVersion = sourceInfo.version.replace(/^v\.?/, '') || '0'
-    const currentVersion = current?.replace(/^v\.?/, '') || '0'
-    const semverGreaterThanCurrent: boolean =
-      semver(sourceVersion, currentVersion) > 0
-    const shouldUpgrade = !current || semverGreaterThanCurrent
-
-    if (shouldUpgrade) {
-      await downloadBinary(
-        sourceInfo.downloadUrl,
-        DOWNLOADED_MKCERT_BINARY_PATH
-      )
-    } else {
-      console.log(messages.mkcertIsLatest(currentVersion))
-    }
   }
 
   private async runBinary(userDefinedHosts: string[]) {
@@ -113,8 +75,7 @@ export default class Mkcert {
     } else if (this.options.autoUpgrade) {
       await this.upgradeMkcertBinary()
     } else {
-      const version = this.getBinaryVersion() || 'unknown'
-      console.log(messages.mkcertIsRunning(version))
+      console.log(messages.mkcertIsRunning())
     }
 
     const defaultHosts = getDefaultHosts()
@@ -166,14 +127,15 @@ export default class Mkcert {
     const keyPath = path.resolve(this.options.outputDir, this.options.key)
     const certPath = path.resolve(this.options.outputDir, this.options.cert)
 
-    if (
-      this.options.force ||
-      !(fs.existsSync(certPath) && fs.existsSync(keyPath))
-    ) {
-      const hosts = await this.runBinary(userDefinedHosts)
+    const forceOptionEnabled = this.options.force
+    const firstInstall = !(fs.existsSync(certPath) && fs.existsSync(keyPath))
 
-      // Regenerate the certificate.
+    if (forceOptionEnabled) {
       console.log(messages.forceCertRegenerate())
+    }
+
+    if (firstInstall || forceOptionEnabled) {
+      const hosts = await this.runBinary(userDefinedHosts)
       this.createCertificate(hosts, keyPath, certPath)
     }
   }
