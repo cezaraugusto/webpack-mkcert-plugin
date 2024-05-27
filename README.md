@@ -7,6 +7,8 @@
 
 > Use certificates that are trusted by your local machine, avoiding browser security warnings during development. 🤝
 
+<img src="https://github.com/cezaraugusto/extension.js/assets/4672033/96a5be49-582b-49c1-ab6d-947f4d56255e">
+
 ## What does this plugin do?
 
 This plugin simplifies the process of setting up HTTPS for your webpack development server by automatically generating and managing SSL certificates using [mkcert](https://github.com/FiloSottile/mkcert).

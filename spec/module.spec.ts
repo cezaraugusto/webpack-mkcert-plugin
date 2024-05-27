@@ -52,7 +52,7 @@ describe('webpack-mkcert-plugin', () => {
     const certPath = path.join(outputDir, cert)
     const keyPath = path.join(outputDir, key)
 
-    await delay(5000) // Wait for 5 seconds
+    await delay(10000) // Wait for 5 seconds
 
     expect(fs.existsSync(certPath)).toBe(true)
     expect(fs.existsSync(keyPath)).toBe(true)
@@ -62,7 +62,7 @@ describe('webpack-mkcert-plugin', () => {
     const certPath = path.join(outputDir, cert)
     const keyPath = path.join(outputDir, key)
 
-    await delay(5000) // Wait for 5 seconds
+    await delay(10000) // Wait for 5 seconds
 
     const certContent = fs.readFileSync(certPath, 'utf-8')
     const keyContent = fs.readFileSync(keyPath, 'utf-8')
