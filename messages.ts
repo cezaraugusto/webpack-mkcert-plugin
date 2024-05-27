@@ -7,10 +7,10 @@ export function installationFilesFound(
   outputDir: string
 ) {
   return (
-      `\nRunning secure local connection via ${bold('mkcert')}. ` +
-      `Certificate files found:\n` +
-      `├─ ${underline(path.join(outputDir, cert))}\n` +
-      `└─ ${underline(path.join(outputDir, key))}`
+    `\nRunning secure local connection via ${bold('mkcert')}. ` +
+    `Certificate files found:\n` +
+    `├─ ${underline(path.join(outputDir, cert))}\n` +
+    `└─ ${underline(path.join(outputDir, key))}`
   )
 }
 
