@@ -32,14 +32,23 @@ export default class MkcertWebpackPlugin {
     const certPath = path.join(outputDir, cert)
     const keyPath = path.join(outputDir, key)
 
-    const filesExist = fs.existsSync(certPath) && fs.existsSync(keyPath)
+    const isFirstInstall = !fs.existsSync(certPath) && !fs.existsSync(keyPath)
 
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, {recursive: true})
     }
 
-    if (!force && filesExist) {
-      console.log(messages.filesAlreadyExist(cert, key, outputDir))
+    if (isFirstInstall) {
+      console.log(messages.isFirstInstall())
+      console.log(messages.maybeSudoApprove())
+    }
+
+    if (!isFirstInstall && !force) {
+      // No need to install the certificate. User has it already.
+      // We should proceed only if force option is enabled.
+      // if (process.env.EXTENSION_ENV === 'development') {
+        console.log(messages.installationFilesFound(cert, key, outputDir))
+      // }
       return
     }
 
@@ -60,7 +69,7 @@ export default class MkcertWebpackPlugin {
   }
 
   public apply(compiler: Compiler) {
-    compiler.hooks.beforeRun.tapPromise('MkcertWebpackPlugin', async () => {
+    compiler.hooks.afterCompile.tapPromise('MkcertWebpackPlugin', async () => {
       try {
         await this.ensureCertificates()
       } catch (error) {

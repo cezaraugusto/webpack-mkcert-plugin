@@ -26,16 +26,23 @@ Check the [demo](./demo) folder for a sample Webpack configuration.
 const path = require('path')
 const MkcertPlugin = require('webpack-mkcert-plugin')
 
+
 module.exports = {
-  devServer: {
-    server: {
-      type: 'https'
+  // Optional: Allow external connections
+  host: '0.0.0.0',
+  server: {
+    type: 'https',
+    options: {
+      key: fs.readFileSync(path.join(__dirname, 'certs', 'localhost.key')),
+      cert: fs.readFileSync(path.join(__dirname, 'certs', 'localhost.cert'))
     }
-  },
+  }
   // ...other webpack config,
   plugins: [
     // See below a list of all available options.
-    new MkcertPlugin()
+    new MkcertPlugin({
+      outputDir: path.join(__dirname, 'certs'),
+    })
   ]
 }
 ```
