@@ -25,8 +25,10 @@
     "watch": "yarn compile --watch",
     "compile": "tsup-node ./module.ts --format cjs --dts --target=node18 --minify",
     "lint": "eslint \"./**/*.ts*\"",
-    "test": "jest"
+    "test": "jest",
+    "publish:provenance": "np patch --no-tests --any-branch --yolo --message 'release: %s' --provenance"
   },
+  "publishConfig": { "provenance": true },
   "keywords": [
     "webpack",
     "plugin",
