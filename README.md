@@ -1,9 +1,14 @@
-[action-image]: https://github.com/cezaraugusto/webpack-mkcert-plugin/workflows/CI/badge.svg
-[action-url]: https://github.com/cezaraugusto/webpack-mkcert-plugin/actions?query=workflow%3ACI
-[npm-image]: https://img.shields.io/npm/v/webpack-mkcert-plugin.svg
-[npm-url]: https://npmjs.org/package/webpack-mkcert-plugin
 
-# webpack-mkcert-plugin [![workflow][action-image]][action-url] [![npm][npm-image]][npm-url]
+[action-image]: https://github.com/cezaraugusto/webpack-mkcert-plugin/actions/workflows/ci.yml/badge.svg?branch=main
+[action-url]: https://github.com/cezaraugusto/webpack-mkcert-plugin/actions
+[npm-version-image]: https://img.shields.io/npm/v/webpack-mkcert-plugin.svg?color=0971fe
+[npm-version-url]: https://www.npmjs.com/package/webpack-mkcert-plugin
+[npm-downloads-image]: https://img.shields.io/npm/dm/webpack-mkcert-plugin.svg?color=0971fe
+[npm-downloads-url]: https://www.npmjs.com/package/webpack-mkcert-plugin
+
+[![Version][npm-version-image]][npm-version-url] [![Downloads][npm-downloads-image]][npm-downloads-url] [![workflow][action-image]][action-url]
+
+# webpack-mkcert-plugin
 
 > Use certificates that are trusted by your local machine, avoiding browser security warnings during development. 🤝
 
