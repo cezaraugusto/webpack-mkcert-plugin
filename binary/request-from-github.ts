@@ -1,5 +1,8 @@
 import https from 'https'
+
 import * as messages from '../messages'
+
+import packageJson from '../package.json'
 
 const MAX_REDIRECTS = 5
 
@@ -16,14 +19,12 @@ interface GitHubData {
   assets: Array<{name: string; browser_download_url: string}>
 }
 
-export default async function requestFromGitHub({
+export default async function requestFromGitHub ({
   url,
   headers,
   responseType,
   redirectAttempts = 0
 }: RequestOptions): Promise<GitHubData | Buffer> {
-  const packageJson = require('../package.json')
-
   return await new Promise((resolve, reject) => {
     const responseBuffer: Uint8Array[] = []
 
@@ -49,6 +50,7 @@ export default async function requestFromGitHub({
         ) {
           if (redirectAttempts >= MAX_REDIRECTS) {
             reject(new Error(messages.tooManyRedirects(MAX_REDIRECTS, url)))
+
             return
           }
 
@@ -60,11 +62,13 @@ export default async function requestFromGitHub({
           })
             .then(resolve)
             .catch(reject)
+
           return
         }
 
         response.on('data', (chunk: Uint8Array) => {
           responseBuffer.push(chunk)
+
           if (url.includes('/download/')) {
             messages.onDataMsg(chunk)
           }
@@ -77,12 +81,15 @@ export default async function requestFromGitHub({
             case 'json':
               try {
                 const jsonResponse = JSON.parse(arrayBuffer.toString())
+
                 resolve(jsonResponse as GitHubData)
-              } catch (error: any) {
-                reject(
-                  new Error(`Failed to parse JSON response: ${error.message}`)
-                )
+              } catch (error) {
+                const message =
+                  error instanceof Error ? error.message : String(error)
+
+                reject(new Error(`Failed to parse JSON response: ${message}`))
               }
+
               break
             case 'arrayBuffer':
               resolve(arrayBuffer)

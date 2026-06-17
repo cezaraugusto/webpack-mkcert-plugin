@@ -24,9 +24,12 @@
     "clean": "rm -rf dist",
     "watch": "yarn compile --watch",
     "compile": "tsup-node ./module.ts --format cjs --dts --target=node18 --minify",
-    "lint": "eslint \"./**/*.ts*\"",
+    "lint": "eslint .",
+    "pretest": "pnpm run compile",
     "test": "jest",
-    "publish:provenance": "np patch --no-tests --any-branch --yolo --message 'release: %s' --provenance"
+    "prepublishOnly": "pnpm run clean && pnpm run compile",
+    "publish:provenance": "np patch --no-tests --any-branch --yolo --message 'release: %s' --provenance",
+    "lint:fix": "eslint . --fix"
   },
   "publishConfig": {
     "provenance": true
@@ -50,13 +53,14 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^18.11.9",
     "@types/semver-compare": "^1.0.1",
-    "eslint": "^8.56.0",
-    "eslint-config-extension-create": "*",
+    "eslint": "^10.5.0",
+    "eslint-config-auditor": "workspace:*",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
     "ts-loader": "^9.5.1",
     "tsconfig": "*",
     "tsup": "^8.0.1",
+    "typescript": "^5.8.3",
     "webpack": "~5.89.0",
     "webpack-cli": "^5.1.4"
   },

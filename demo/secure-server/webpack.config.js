@@ -1,4 +1,5 @@
 const path = require('path')
+
 const MkcertWebpackPlugin = require('../../dist/module').default
 
 module.exports = {
