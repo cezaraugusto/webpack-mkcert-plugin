@@ -1,8 +1,9 @@
 import fs from 'fs'
 import path from 'path'
+
 import webpack from 'webpack'
 
-function delay(ms: number) {
+function delay (ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
@@ -10,6 +11,7 @@ const outputDir = path.resolve(
   process.cwd(),
   'demo/secure-server/dist/cert-custom-path'
 )
+
 const cert = 'my-custom-dev.cert'
 const key = 'my-custom-dev.key'
 
@@ -22,6 +24,7 @@ describe('webpack-mkcert-plugin', () => {
     const webpackConfig = require(
       path.resolve(process.cwd(), 'demo/secure-server/webpack.config.js')
     )
+
     compiler = webpack(webpackConfig)
     compiler.run((err, stats) => {
       if (err || stats?.hasErrors()) {
@@ -48,7 +51,7 @@ describe('webpack-mkcert-plugin', () => {
     }
   })
 
-  test('should output certificate files', async () => {
+  it('should output certificate files', async () => {
     const certPath = path.join(outputDir, cert)
     const keyPath = path.join(outputDir, key)
 
@@ -58,7 +61,7 @@ describe('webpack-mkcert-plugin', () => {
     expect(fs.existsSync(keyPath)).toBe(true)
   })
 
-  test('certificate files should contain expected strings', async () => {
+  it('certificate files should contain expected strings', async () => {
     const certPath = path.join(outputDir, cert)
     const keyPath = path.join(outputDir, key)
 

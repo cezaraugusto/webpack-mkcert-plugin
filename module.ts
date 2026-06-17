@@ -1,9 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import {PluginOptions} from './types'
+
 import Mkcert from './binary/mkcert'
 import * as messages from './messages'
-import {Compiler} from 'webpack'
+
+import type {Compiler} from 'webpack'
+import type {PluginOptions} from './types'
 
 const DEFAULT_OUTPUT_DIR = path.resolve(__dirname, 'certs')
 const DEFAULT_HOSTS = ['localhost']
@@ -15,8 +17,7 @@ const DEFAULT_FORCE = false
 export default class MkcertWebpackPlugin {
   private readonly options: PluginOptions
 
-  // @ts-ignore
-  constructor(options: PluginOptions = {} as any) {
+  constructor (options: Partial<PluginOptions> = {}) {
     this.options = {
       hosts: options.hosts || DEFAULT_HOSTS,
       key: options.key || DEFAULT_KEY_FILENAME,
@@ -27,7 +28,7 @@ export default class MkcertWebpackPlugin {
     }
   }
 
-  private async ensureCertificates() {
+  private async ensureCertificates () {
     const {force, key, cert, hosts, outputDir} = this.options
     const certPath = path.join(outputDir, cert)
     const keyPath = path.join(outputDir, key)
@@ -54,6 +55,7 @@ export default class MkcertWebpackPlugin {
 
     try {
       const mkcert = new Mkcert(this.options)
+
       await mkcert.installCertificate(hosts || [])
 
       console.log(
@@ -68,7 +70,7 @@ export default class MkcertWebpackPlugin {
     }
   }
 
-  public apply(compiler: Compiler) {
+  public apply (compiler: Compiler) {
     compiler.hooks.afterCompile.tapPromise('MkcertWebpackPlugin', async () => {
       try {
         await this.ensureCertificates()

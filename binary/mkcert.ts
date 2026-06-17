@@ -2,6 +2,7 @@ import os from 'os'
 import fs from 'fs'
 import path from 'path'
 import {exec} from 'child_process'
+
 import {type PluginOptions} from '../types'
 import getBinaryData from './get-binary-data'
 import downloadBinary from './download-binary'
@@ -10,7 +11,7 @@ import * as messages from '../messages'
 const mkCert = process.platform === 'win32' ? 'mkcert.exe' : 'mkcert'
 const DOWNLOADED_MKCERT_BINARY_PATH = path.resolve(__dirname, mkCert)
 
-function getDefaultHosts() {
+function getDefaultHosts () {
   const interfaceDict = os.networkInterfaces()
   const addresses: string[] = []
 
@@ -19,7 +20,7 @@ function getDefaultHosts() {
 
     if (interfaces) {
       for (const item of interfaces) {
-        const family = item.family
+        const {family} = item
 
         if (family === 'IPv4') {
           addresses.push(item.address)
@@ -34,16 +35,17 @@ function getDefaultHosts() {
 export default class Mkcert {
   private readonly options: PluginOptions
 
-  constructor(options: PluginOptions) {
+  constructor (options: PluginOptions) {
     this.options = options
   }
 
-  private getBinary() {
+  private getBinary () {
     return fs.existsSync(DOWNLOADED_MKCERT_BINARY_PATH)
       ? DOWNLOADED_MKCERT_BINARY_PATH
       : undefined
   }
-  private async downloadBinary() {
+
+  private async downloadBinary () {
     messages.startingMkcertDownload()
 
     const sourceInfo = await getBinaryData()
@@ -57,19 +59,17 @@ export default class Mkcert {
     await downloadBinary(sourceInfo?.downloadUrl, DOWNLOADED_MKCERT_BINARY_PATH)
   }
 
-  private async upgradeMkcertBinary() {
+  private async upgradeMkcertBinary () {
     console.log(messages.upgradingMkcert())
 
     const sourceInfo = await getBinaryData()
 
     if (!sourceInfo) {
       console.error(messages.noDownloadInfoSkipUpdate())
-
-      return
     }
   }
 
-  private async runBinary(userDefinedHosts: string[]) {
+  private async runBinary (userDefinedHosts: string[]) {
     if (!fs.existsSync(DOWNLOADED_MKCERT_BINARY_PATH)) {
       await this.downloadBinary()
     } else if (this.options.autoUpgrade) {
@@ -81,10 +81,11 @@ export default class Mkcert {
     const defaultHosts = getDefaultHosts()
     const definedHosts = [...new Set([...defaultHosts, ...userDefinedHosts])]
     const hosts = definedHosts.filter((item) => !!item)
+
     return hosts
   }
 
-  private createCertificate(
+  private createCertificate (
     hosts: string[],
     keyPath: string,
     certPath: string
@@ -119,7 +120,7 @@ export default class Mkcert {
     })
   }
 
-  public async installCertificate(userDefinedHosts: string[]) {
+  public async installCertificate (userDefinedHosts: string[]) {
     if (!fs.existsSync(this.options.outputDir)) {
       fs.mkdirSync(this.options.outputDir, {recursive: true})
     }
@@ -136,6 +137,7 @@ export default class Mkcert {
 
     if (firstInstall || forceOptionEnabled) {
       const hosts = await this.runBinary(userDefinedHosts)
+
       this.createCertificate(hosts, keyPath, certPath)
     }
   }

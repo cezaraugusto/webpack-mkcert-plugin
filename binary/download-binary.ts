@@ -1,9 +1,10 @@
 import fs from 'fs'
 import path from 'path'
+
 import requestFromGithub from './request-from-github'
 import * as messages from '../messages'
 
-export default async function downloadBinary(
+export default async function downloadBinary (
   downloadUrl: string,
   binaryOutputPath: string
 ) {
@@ -17,6 +18,7 @@ export default async function downloadBinary(
 
   // Create the directory if it doesn't exist.
   const dirPath = path.dirname(binaryOutputPath)
+
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, {recursive: true})
   }
