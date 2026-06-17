@@ -28,7 +28,9 @@
     "test": "jest",
     "publish:provenance": "np patch --no-tests --any-branch --yolo --message 'release: %s' --provenance"
   },
-  "publishConfig": { "provenance": true },
+  "publishConfig": {
+    "provenance": true
+  },
   "keywords": [
     "webpack",
     "plugin",
@@ -57,5 +59,6 @@
     "tsup": "^8.0.1",
     "webpack": "~5.89.0",
     "webpack-cli": "^5.1.4"
-  }
+  },
+  "packageManager": "pnpm@9.9.0"
 }
