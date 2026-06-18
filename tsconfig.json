@@ -11,6 +11,7 @@
     "inlineSources": false,
     "isolatedModules": false,
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
     "types": ["node", "jest"],
     "noUnusedLocals": false,
     "noUnusedParameters": false,
