@@ -27,5 +27,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Install mkcert and local CA
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3-tools
+          curl -fsSL -o mkcert "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
+          chmod +x mkcert
+          sudo mv mkcert /usr/local/bin/mkcert
+          mkcert -install
+
       - name: Run tests
         run: pnpm test
