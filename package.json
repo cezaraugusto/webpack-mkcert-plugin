@@ -61,7 +61,7 @@
     "tsconfig": "*",
     "tsup": "^8.0.1",
     "typescript": "^5.8.3",
-    "webpack": "~5.89.0",
+    "webpack": "~5.107.2",
     "webpack-cli": "^5.1.4"
   },
   "packageManager": "pnpm@9.9.0",
