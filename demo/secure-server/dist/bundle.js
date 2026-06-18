@@ -6,27 +6,28 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-/** *** */ (() => { // webpackBootstrap
-/** *** */ 'use strict'
-  /** *** */ const __webpack_modules__ = ({
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
-    /***/ './index.ts':
-    /*! ******************!*\
+/***/ "./index.ts":
+/*!******************!*\
   !*** ./index.ts ***!
-  \***************** */
-    /***/ () => {
-      eval("\nconsole.log('Hello from webpack-mkcert-plugin :)');\n\n\n//# sourceURL=webpack:///./index.ts?")
-      /***/ }
+  \******************/
+/***/ (() => {
 
-    /** *** */})
+eval("\nconsole.log('Hello from webpack-mkcert-plugin :)');\n\n\n//# sourceURL=webpack:///./index.ts?");
 
-  /** ********************************************************************* */
-  /** *** */
-  /** *** */ // startup
-  /** *** */ // Load entry module and return exports
-  /** *** */ // This entry module can't be inlined because the eval devtool is used.
-  /** *** */ const __webpack_exports__ = {}
+/***/ })
 
-  /** *** */ __webpack_modules__['./index.ts']()
-/** *** */
-/** *** */ })()
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./index.ts"]();
+/******/ 	
+/******/ })()
+;
