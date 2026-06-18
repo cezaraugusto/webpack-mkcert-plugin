@@ -26,7 +26,7 @@
     "compile": "tsup-node ./module.ts --format cjs --dts --target=node18 --minify",
     "lint": "eslint .",
     "pretest": "pnpm run compile",
-    "test": "jest",
+    "test": "jest --forceExit",
     "prepublishOnly": "pnpm run clean && pnpm run compile",
     "lint:fix": "eslint . --fix"
   },
