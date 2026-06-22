@@ -4,10 +4,12 @@
 [npm-downloads-url]: https://www.npmjs.com/package/webpack-mkcert-plugin
 [action-image]: https://github.com/cezaraugusto/webpack-mkcert-plugin/actions/workflows/ci.yml/badge.svg?branch=main
 [action-url]: https://github.com/cezaraugusto/webpack-mkcert-plugin/actions
+[provenance-image]: https://img.shields.io/badge/provenance-verified-0971fe?logo=npm&logoColor=white
+[provenance-url]: https://www.npmjs.com/package/webpack-mkcert-plugin
 
 > Use certificates for webpack that are trusted by your local machine, avoiding browser security warnings during development.
 
-# webpack-mkcert-plugin [![Version][npm-version-image]][npm-version-url] [![Downloads][npm-downloads-image]][npm-downloads-url] [![workflow][action-image]][action-url]
+# webpack-mkcert-plugin [![Version][npm-version-image]][npm-version-url] [![Downloads][npm-downloads-image]][npm-downloads-url] [![workflow][action-image]][action-url] [![provenance][provenance-image]][provenance-url]
 
 <img src="https://github.com/cezaraugusto/extension.js/assets/4672033/96a5be49-582b-49c1-ab6d-947f4d56255e">
 
