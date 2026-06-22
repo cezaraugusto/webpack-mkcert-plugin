@@ -16,14 +16,12 @@ export default async function downloadBinary (
     responseType: 'arrayBuffer'
   })
 
-  // Create the directory if it doesn't exist.
   const dirPath = path.dirname(binaryOutputPath)
 
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, {recursive: true})
   }
 
-  // Write the file to the specified path.
   fs.writeFileSync(binaryOutputPath, data as Buffer)
   fs.chmodSync(binaryOutputPath, 0o777)
 

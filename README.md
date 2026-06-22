@@ -13,7 +13,7 @@
 
 ## What does this plugin do?
 
-This plugin simplifies the process of setting up HTTPS for your webpack development server by automatically generating and managing SSL certificates using [mkcert](https://github.com/FiloSottile/mkcert).
+This plugin sets up HTTPS for your webpack development server by automatically generating and managing SSL certificates using [mkcert](https://github.com/FiloSottile/mkcert).
 
 ## Install
 
