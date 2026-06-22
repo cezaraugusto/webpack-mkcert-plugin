@@ -62,7 +62,7 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
       webpack:
-        specifier: ^5.107.2
+        specifier: '>=5.104.1'
         version: 5.107.2(esbuild@0.28.1)(webpack-cli@7.0.3)
       webpack-cli:
         specifier: ^7.0.3
