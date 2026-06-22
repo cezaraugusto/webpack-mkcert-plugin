@@ -27,9 +27,9 @@ Check the [demo](./demo) folder for a sample Webpack configuration.
 
 ```js
 // webpack.config.js
+const fs = require('fs')
 const path = require('path')
 const MkcertPlugin = require('webpack-mkcert-plugin')
-
 
 module.exports = {
   // Optional: Allow external connections
@@ -40,8 +40,8 @@ module.exports = {
       key: fs.readFileSync(path.join(__dirname, 'certs', 'localhost.key')),
       cert: fs.readFileSync(path.join(__dirname, 'certs', 'localhost.cert'))
     }
-  }
-  // ...other webpack config,
+  },
+  // ...other webpack config
   plugins: [
     // See below a list of all available options.
     new MkcertPlugin({
@@ -75,6 +75,15 @@ new MkcertPlugin({
   autoUpgrade: true
 })
 ```
+
+## Related projects
+
+* [log-md](https://github.com/cezaraugusto/log-md)
+* [mklicense](https://github.com/cezaraugusto/mklicense)
+* [prefers-yarn](https://github.com/cezaraugusto/prefers-yarn)
+* [go-git-it](https://github.com/cezaraugusto/go-git-it)
+* [git-precision](https://github.com/cezaraugusto/git-precision)
+* [pintor](https://github.com/cezaraugusto/pintor)
 
 ## License
 
