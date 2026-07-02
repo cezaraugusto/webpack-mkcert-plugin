@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.9.3",
+    "@types/node": "^26.1.0",
     "@types/semver-compare": "^1.0.3",
     "eslint": "^10.5.0",
     "eslint-config-auditor": "^2.3.1",
